@@ -248,7 +248,7 @@ export function extractTweetUnion(tweet: TweetUnion): Tweet | null {
 }
 
 export function extractRetweetedTweet(tweet: Tweet): Tweet | null {
-  if (tweet.legacy.retweeted_status_result?.result) {
+  if (tweet.legacy?.retweeted_status_result?.result) {
     return extractTweetUnion(tweet.legacy.retweeted_status_result.result);
   }
 
@@ -264,7 +264,7 @@ export function extractQuotedTweet(tweet: Tweet): Tweet | null {
 }
 
 export function extractTweetUserScreenName(tweet: Tweet): string {
-  return tweet.core.user_results.result.core.screen_name;
+  return tweet.core?.user_results?.result?.core?.screen_name ?? '';
 }
 
 export function extractTweetMedia(tweet: Tweet): Media[] {
@@ -273,11 +273,11 @@ export function extractTweetMedia(tweet: Tweet): Media[] {
   const realTweet = extractRetweetedTweet(tweet) ?? tweet;
 
   // Prefer `extended_entities` over `entities` for media list.
-  if (realTweet.legacy.extended_entities?.media) {
+  if (realTweet.legacy?.extended_entities?.media) {
     return realTweet.legacy.extended_entities.media;
   }
 
-  return realTweet.legacy.entities.media ?? [];
+  return realTweet.legacy?.entities?.media ?? [];
 }
 
 export function extractTweetMediaTags(tweet: Tweet): Tag[] {
@@ -298,7 +298,7 @@ export function extractTweetMediaTags(tweet: Tweet): Tag[] {
 }
 
 export function extractTweetFullText(tweet: Tweet): string {
-  return tweet.note_tweet?.note_tweet_results.result.text ?? tweet.legacy.full_text;
+  return tweet.note_tweet?.note_tweet_results.result.text ?? tweet.legacy?.full_text;
 }
 
 export function filterEmptyTweet(tweet: Tweet): Tweet | null {
@@ -378,13 +378,13 @@ export function getFileExtensionFromUrl(url: string): string {
 }
 
 export function getTweetURL(tweet: Tweet): string {
-  return `https://twitter.com/${extractTweetUserScreenName(tweet)}/status/${tweet.legacy.id_str}`;
+  return `https://twitter.com/${extractTweetUserScreenName(tweet)}/status/${tweet.legacy?.id_str}`;
 }
 
 export function getUserURL(user: User | string): string {
-  return `https://twitter.com/${typeof user === 'string' ? user : user.core.screen_name}`;
+  return `https://twitter.com/${typeof user === 'string' ? user : user.core?.screen_name}`;
 }
 
 export function getInReplyToTweetURL(tweet: Tweet): string {
-  return `https://twitter.com/${tweet.legacy.in_reply_to_screen_name}/status/${tweet.legacy.in_reply_to_status_id_str}`;
+  return `https://twitter.com/${tweet.legacy?.in_reply_to_screen_name}/status/${tweet.legacy?.in_reply_to_status_id_str}`;
 }

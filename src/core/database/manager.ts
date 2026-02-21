@@ -210,7 +210,7 @@ export class DatabaseManager {
         const data: Tweet[] = tweets.map((tweet) => ({
           ...tweet,
           twe_private_fields: {
-            created_at: +parseTwitterDateTime(tweet.legacy.created_at),
+            created_at: +parseTwitterDateTime(tweet.legacy?.created_at),
             updated_at: Date.now(),
             media_count: extractTweetMedia(tweet).length,
           },
@@ -227,7 +227,7 @@ export class DatabaseManager {
         const data: User[] = users.map((user) => ({
           ...user,
           twe_private_fields: {
-            created_at: +parseTwitterDateTime(user.core.created_at),
+            created_at: +parseTwitterDateTime(user.core?.created_at),
             updated_at: Date.now(),
           },
         }));
