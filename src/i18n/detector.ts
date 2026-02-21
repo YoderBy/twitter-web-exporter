@@ -14,6 +14,11 @@ export const LANGUAGES_CONFIG = {
     nameEn: 'Indonesian',
     test: (code: string) => /^id/.test(code),
   },
+  ja: {
+    name: '日本語',
+    nameEn: 'Japanese',
+    test: (code: string) => /^ja/.test(code),
+  },
 };
 
 /**
