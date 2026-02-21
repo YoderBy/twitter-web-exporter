@@ -4,6 +4,11 @@ export const LANGUAGES_CONFIG = {
     nameEn: 'English',
     test: (code: string) => /^en/.test(code),
   },
+  'zh-Hant': {
+    name: '繁體中文',
+    nameEn: 'Traditional Chinese',
+    test: (code: string) => /^zh-(TW|HK|MO|Hant)/.test(code),
+  },
   'zh-Hans': {
     name: '简体中文',
     nameEn: 'Simplified Chinese',
